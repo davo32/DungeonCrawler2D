@@ -15,6 +15,8 @@ public class ActionCardScript : MonoBehaviour,  IPointerEnterHandler, IPointerEx
 
     private GameObject[] P1Cards;
 
+    [SerializeField] private AudioSource SFX;
+
     public void Awake()
     {
         Front.transform.GetChild(1).transform.GetChild(0).gameObject.GetComponent<Image>().sprite = _ActionCard.Icon;
@@ -57,7 +59,7 @@ public class ActionCardScript : MonoBehaviour,  IPointerEnterHandler, IPointerEx
             BattleSceneManager.Instance.P_ActionCard = _ActionCard;
             AI_BattleMode.Instance.ChooseCard();
             SetStatus();
-
+            SFX.Play();
             //card effect here
 
 
@@ -92,7 +94,6 @@ public class ActionCardScript : MonoBehaviour,  IPointerEnterHandler, IPointerEx
                 P1Cards[i].GetComponent<Button>().interactable = true;
             }
         }
-
         AI_BattleMode.Instance.ResetCards();
     }
 
@@ -129,10 +130,6 @@ public class ActionCardScript : MonoBehaviour,  IPointerEnterHandler, IPointerEx
             {
                 BattleSceneManager.Instance.E_Health -= BattleSceneManager.Instance.P_ActionCard.StatAmount;
                 BattleSceneManager.Instance.P_Health -= AI_BattleMode.Instance.E_ActiveCard.StatAmount;
-            }
-            else if(BattleSceneManager.Instance.P_ActionCard.EffectType == ActionCardLogic.EType.Defend)
-            {
-                //do nothing
             }
         }
         else if(AI_BattleMode.Instance.E_ActiveCard.EffectType != BattleSceneManager.Instance.P_ActionCard.EffectType)

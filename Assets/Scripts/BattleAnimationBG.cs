@@ -7,10 +7,12 @@ public class BattleAnimationBG : MonoBehaviour
     public List<GameObject> TilesToEnable = new List<GameObject>();
     public GameObject UI;
     public float delay = 2f;
-
+    public AudioClip effect;
     private void Start()
     {
+        GetComponent<AudioSource>().Play();
         StartCoroutine(RunAnimation());
+        
     }
 
     public IEnumerator RunAnimation()
@@ -18,12 +20,13 @@ public class BattleAnimationBG : MonoBehaviour
         if (UI.activeInHierarchy)
         {
             TilesToEnable.Reverse();
-
+            
             for (int i = 0; i < TilesToEnable.Count; i++)
             {
                 TilesToEnable[i].SetActive(true);
                 yield return new WaitForSeconds(delay);
             }
+            
             UI.SetActive(false);
         }
         else
@@ -35,5 +38,6 @@ public class BattleAnimationBG : MonoBehaviour
             }
             UI.SetActive(true);
         }
+        GetComponent<AudioSource>().Stop();
     }
 }

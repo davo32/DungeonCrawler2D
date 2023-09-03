@@ -246,10 +246,10 @@ MonoBehaviour:
   Occupied: 0
   CanMoveTo: 0
   None: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  SummonZone: {fileID: 0}
-  Path: {fileID: 0}
-  Wall: {fileID: 0}
-  Stairs: {fileID: 0}
-  Door: {fileID: 0}
-  MStone: {fileID: 0}
+  SummonZone: {fileID: 21300000, guid: 6c07e822aa2cd6b419bf3e192aee6f69, type: 3}
+  Path: {fileID: 21300000, guid: bfc41bb95f80fe548a4e26d950f5b8c4, type: 3}
+  Wall: {fileID: 21300000, guid: 9e43412317fde4a47ab28d1b8a431a1d, type: 3}
+  Stairs: {fileID: 21300000, guid: bbe9bfb8e4aaf3f4499425c3ffe8c197, type: 3}
+  Door: {fileID: 21300000, guid: d88f1f077b0b6f040bfcaa111950c579, type: 3}
+  MStone: {fileID: 21300000, guid: c59a5706265e4ef4187edd9438e7424b, type: 3}
   GroundType: 1
