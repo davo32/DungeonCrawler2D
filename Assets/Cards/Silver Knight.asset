@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73fc769a37dcc049b414aabfd9fa8c2, type: 3}
+  m_Name: Silver Knight
+  m_EditorClassIdentifier: Assembly-CSharp::Card
+  CardName: Silver Knight
+  CardIcon: {fileID: 21300000, guid: 5d90cd30a60c3b14d9b6def7379506aa, type: 3}
+  SummoningPoints: 2
+  AttackPoints: 4
+  DefensePoints: 4
+  HealthPoints: 100
