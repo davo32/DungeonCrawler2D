@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +21,11 @@ public class TileInfo : MonoBehaviour
 
     public bool Occupied;
     public bool CanMoveTo;
+    
+    [Header("3D")]
+    [SerializeField] private GameObject Obj;
+
+    private CanvasGroup RoomObject;
 
     #region TextureTypes
     public Sprite None;
@@ -38,15 +41,15 @@ public class TileInfo : MonoBehaviour
 
     public enum TileType { None, Path, Wall, Stairs,SummonZone,Door,MStone };
     public TileType GroundType = TileType.Path;
-
+    
     private void Start()
     {
         TileSelf = gameObject;
         TileChild = TileSelf.transform.GetChild(0).gameObject;
         PlayerInterfaceObj = GameObject.FindGameObjectWithTag("PlayerInterface");
         PlayerOneUI = GameObject.FindGameObjectWithTag("P1 UI");
-
-
+        RoomObject = transform.parent.gameObject.GetComponent<CanvasGroup>();
+        
         switch (GroundType)
         {
             case TileType.None:
@@ -61,6 +64,7 @@ public class TileInfo : MonoBehaviour
                 {
                     TileSelf.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Path;
                     TileSelf.transform.GetComponentInChildren<Image>().sprite = Path;
+                    transform.GetChild(2).gameObject.SetActive(false);
                     Occupied = false;
                     break;
                 }
@@ -68,6 +72,7 @@ public class TileInfo : MonoBehaviour
                 {
                     TileSelf.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Wall;
                     TileSelf.transform.GetComponentInChildren<Image>().sprite = Wall;
+                    transform.GetChild(2).gameObject.SetActive(false);
                     Occupied = true;
                     break;
                 }
@@ -75,6 +80,7 @@ public class TileInfo : MonoBehaviour
                 {
                     TileSelf.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Stairs;
                     TileSelf.transform.GetComponentInChildren<Image>().sprite = Stairs;
+                    transform.GetChild(2).gameObject.SetActive(false);
                     Occupied = false;
                     break;
                 }
@@ -89,6 +95,7 @@ public class TileInfo : MonoBehaviour
                 {
                     TileSelf.transform.GetChild(0).GetComponentInChildren<Image>().sprite = SummonZone;
                     TileSelf.transform.GetComponentInChildren<Image>().sprite = SummonZone;
+                    transform.GetChild(2).gameObject.SetActive(false);
                     Occupied = false;
                     break;
                 }
@@ -96,6 +103,7 @@ public class TileInfo : MonoBehaviour
                 {
                     TileSelf.transform.GetChild(0).GetComponentInChildren<Image>().sprite = SummonZone;
                     TileSelf.transform.GetComponentInChildren<Image>().sprite = MStone;
+                    transform.GetChild(2).gameObject.SetActive(false);
                     Occupied = false;
                     break;
                 }
@@ -106,6 +114,10 @@ public class TileInfo : MonoBehaviour
 
     public void SetUnit()
     {
+        //Debug.Log(GameManager.Instance.PlayerActiveUnit.name);
+        //if(GroundType == TileType.SummonZone && GameManager.Instance.PlayerActiveUnit != null)
+            //DeSpawn();
+        
         if (PlayerInterfaceObj.GetComponent<PlayerInterface>().CanSummon && !Occupied)
         {
             if (P1SummonZone)
@@ -117,7 +129,6 @@ public class TileInfo : MonoBehaviour
                 Unit.GetComponent<UnitInfo>().UType = UnitInfo.UnitType.Player;
 
                 TileSelf.transform.GetChild(0).gameObject.GetComponent<CanvasGroup>().alpha = 1.0f;
-                TileSelf.GetComponent<Button>().image.color = Color.cyan;
                 OccupiedUnit = Unit;
 
                 Occupied = true;
@@ -125,7 +136,8 @@ public class TileInfo : MonoBehaviour
                 PlayerInterfaceObj.GetComponent<PlayerInterface>().SummonMenu.SetActive(false);
 
                 PlayerInterfaceObj.GetComponent<PlayerInterface>().CardToHide.GetComponent<CanvasGroup>().alpha = 0.0f;
-
+                PlayerInterfaceObj.GetComponent<PlayerInterface>().CardToHide.GetComponent<Button>().interactable = false;
+                
                 GameManager.Instance.PlayerActiveUnit = Unit;
 
                 PlayerOneUI.GetComponent<PlayerInfo>().PlayerNameUI.text = Unit.GetComponent<UnitInfo>().CardInfo.CardName;
@@ -133,7 +145,6 @@ public class TileInfo : MonoBehaviour
                 SetInteraction.Instance.ActivateInteractionText($"{Unit.GetComponent<UnitInfo>().CardInfo.CardName} Summoned",Color.magenta,3);
 
             }
-
         }
     }
 
@@ -160,6 +171,15 @@ public class TileInfo : MonoBehaviour
                 //Reset Tile Indicators
                 GameManager.Instance.ResetTiles();
             }
+            
+            //function here
+    }
+
+    void DeSpawn()
+    {
+        Destroy(GameManager.Instance.PlayerActiveUnit);
+        PlayerInterfaceObj.GetComponent<PlayerInterface>().CardToHide.GetComponent<CanvasGroup>().alpha = 1.0f;
+        Debug.Log("Despawned Character");
     }
 
     public void SetUnitParent(GameObject Obj)
@@ -168,6 +188,10 @@ public class TileInfo : MonoBehaviour
     }
     private void Update()
     {
+        //3D///////////////////////////////////////////////////////////////////////////////////////////////////////
+        Obj.SetActive(RoomObject.alpha > 0.0f && GroundType == TileType.Wall);
+        transform.GetChild(2).gameObject.SetActive(transform.parent.GetComponent<CanvasGroup>().alpha > 0.0f && GroundType == TileType.Door);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
         if (GroundType == TileType.Wall)
         {
             Occupied = true;
@@ -175,7 +199,7 @@ public class TileInfo : MonoBehaviour
 
         ColorBlock colorvar = gameObject.GetComponent<Button>().colors;
         
-        if (Occupied && OccupiedUnit != null)
+        if (Occupied && OccupiedUnit)
         {
             if (OccupiedUnit.GetComponent<UnitInfo>().UType == UnitInfo.UnitType.Enemy)
             {

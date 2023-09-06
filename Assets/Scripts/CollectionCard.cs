@@ -23,9 +23,9 @@ public class CollectionCard : MonoBehaviour
 
     public void UpdateCard()
     {
-        CardImage.sprite = ActionCard.Icon;
-        if(isMainCard) TitleText.text = ActionCard.ActionName;
-        switch (ActionCard.EffectType)
+        CardImage.sprite = ActionCard.icon;
+        if(isMainCard) TitleText.text = ActionCard.actionName;
+        switch (ActionCard.effectType)
         {
             case ActionCardLogic.EType.Damage:
             {

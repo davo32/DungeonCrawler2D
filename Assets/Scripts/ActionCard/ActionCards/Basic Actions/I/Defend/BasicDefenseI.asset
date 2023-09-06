@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63409b2630dfcb14498881d923666cda, type: 3}
-  m_Name: B_Attack_II
+  m_Script: {fileID: 11500000, guid: 083f77d2d6839474c910cf3e0fa87031, type: 3}
+  m_Name: BasicDefenseI
   m_EditorClassIdentifier: 
-  ActionName: Basic Attack II
-  Icon: {fileID: 0}
-  StatAmount: 20
-  EffectSpeed: 2
-  EffectType: 1
+  actionName: Basic Defense I
+  icon: {fileID: 21300000, guid: 9d2200a6f76dbc444a0d80d8cecbde6d, type: 3}
+  statAmount: 10
+  effectSpeed: 1
+  effectType: 2

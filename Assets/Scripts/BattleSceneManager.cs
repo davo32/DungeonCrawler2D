@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 public class BattleSceneManager : MonoBehaviour
 {
     public static BattleSceneManager Instance { private set; get; }
 
+    [SerializeField] private BattleAnimationBG anim;
     //Player
     public CardObject Player;
     public ActionCardLogic P_ActionCard;
@@ -61,5 +60,9 @@ public class BattleSceneManager : MonoBehaviour
 
     }
 
-
+    private void Update()
+    {
+        if (E_Health <= 0) 
+            gameObject.SetActive(false);
+    }
 }

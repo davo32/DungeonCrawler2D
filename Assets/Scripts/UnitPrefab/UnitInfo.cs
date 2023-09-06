@@ -29,6 +29,8 @@ public class UnitInfo : MonoBehaviour
     public Owner UnitOwnership = Owner.None;
 
     public bool CanMove;
+
+    public Color CubeColor;
     private void Start()
     {
         PlayerInterfaceObj = GameObject.FindGameObjectWithTag("PlayerInterface");
@@ -52,8 +54,6 @@ public class UnitInfo : MonoBehaviour
         UnitHealthCurr = CardInfo.HealthPoints;
         UnitAttackCurr = CardInfo.AttackPoints;
         UnitDefenseCurr = CardInfo.DefensePoints;
-
-
 
         //CurrTile.GetComponent<TileInfo>().SetUnit(gameObject);
         if (UnitOwnership == Owner.PlayerOne)
@@ -90,6 +90,8 @@ public class UnitInfo : MonoBehaviour
 
     private void Update()
     {
+        transform.GetChild(1).GetComponent<MeshRenderer>().material.color = CubeColor;
+        
         if (UnitHealthCurr <= 0)
         {
             Debug.Log($"{UnitName} is DEAD");
@@ -97,23 +99,23 @@ public class UnitInfo : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             GameManager.Instance.TestKeyboardMovement("W");
             Debug.Log("W: PRESSED");
         }
 
-        else if (Input.GetKeyUp(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S))
         {
             GameManager.Instance.TestKeyboardMovement("S");
         }
 
-        else if (Input.GetKeyUp(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             GameManager.Instance.TestKeyboardMovement("D");
         }
 
-        else if (Input.GetKeyUp(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.A))
         {
             GameManager.Instance.TestKeyboardMovement("A");
         }

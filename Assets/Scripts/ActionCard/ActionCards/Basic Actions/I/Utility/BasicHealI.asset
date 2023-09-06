@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63409b2630dfcb14498881d923666cda, type: 3}
-  m_Name: B_Run
+  m_Script: {fileID: 11500000, guid: 0f2759a616c52ea449536bb579934a73, type: 3}
+  m_Name: BasicHealI
   m_EditorClassIdentifier: 
-  ActionName: Run From Battle
-  Icon: {fileID: 21300000, guid: 1a570d19d6cd7944b99a753c70f6803d, type: 3}
-  StatAmount: 0
-  EffectType: 3
+  actionName: Basic Heal I
+  icon: {fileID: 21300000, guid: 6015fe939092cdb45979ef10bad71ec6, type: 3}
+  statAmount: 10
+  effectSpeed: 2
+  effectType: 3
